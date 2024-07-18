@@ -1,7 +1,7 @@
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
-const { userJoin, getUsers, userLeave } = require("./utils/user");
+const { userJoin, getUsers, userLeave } = require("./util/user");
 
 const app = express();
 const server = http.createServer(app);
