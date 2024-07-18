@@ -20,6 +20,7 @@
     "react-toastify": "^10.0.5",
     "roughjs": "^4.6.6",
     "socket.io-client": "^4.7.5",
+    "toastify": "^2.0.1",
     "yarn": "^1.22.22"
   },
   "devDependencies": {
