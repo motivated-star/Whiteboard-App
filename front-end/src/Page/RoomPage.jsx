@@ -43,9 +43,19 @@ const RoomPage = ({user}) => {
         <h1 className="text-3xl pt-4 pb-3 text-center">
             React Drawing App
         </h1>
-        {
-           user?.presenter && <div className="flex flex-wrap justify-center items-center text-center py-2 w-full space-y-4 md:space-y-0">
+        <div className="flex flex-wrap justify-center items-center text-center py-2 w-full space-y-4 md:space-y-0">
             <div className="flex flex-wrap justify-center items-center space-x-4">
+                <div className="w-1/4 flex items-center justify-center">
+                    <div className="flex items-center">
+                        <span className="mr-2">Color Picker:</span>
+                        <input
+                        type="color"
+                        value={color}
+                        onChange={(e) => setColor(e.target.value)}
+                        className="w-10 h-10 border-none p-0"
+                        />
+                    </div>
+                </div>
                 <div className="form-check form-check-inline mx-2">
                     <input
                         className="form-check-input"
@@ -91,18 +101,7 @@ const RoomPage = ({user}) => {
                         Rectangle
                     </label>
                 </div>
-                <div className="flex justify-center items-center text-center py-2">
-                    <div className="md:w-1/6">
-                        <div className="flex items-center justify-center">
-                        Color Picker : &nbsp;
-                        <input
-                            type="color"
-                            value={color}
-                            onChange={(e) => setColor(e.target.value)}
-                        />
-                        </div>
-                    </div>
-                </div>
+
             </div>
             <div className="flex space-x-2 flex-wrap justify-center items-center ml-3">
                 <button
@@ -130,7 +129,6 @@ const RoomPage = ({user}) => {
                 </button>
             </div>
         </div>
-        }
         
         <div className="w-full h-1/2">
             <Whiteboard 
