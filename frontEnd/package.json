@@ -5,6 +5,7 @@
   "dependencies": {
     "@popperjs/core": "^2.9.2",
     "bootstrap": "^5.0.2",
+    "cloudinary": "^2.5.1",
     "react": "^17.0.0",
     "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "^17.0.0",

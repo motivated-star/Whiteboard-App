@@ -8,7 +8,7 @@ import Sidebar from "./Sidebar";
 
 import "./style.css";
 
-const server = "http://localhost:5000";
+const server = `${import.meta.env.REACT_APP_SERVER_URL}`;
 const connectionOptions = {
   "force new connection": true,
   reconnectionAttempts: "Infinity",
