@@ -8,7 +8,8 @@ import Sidebar from "./Sidebar";
 
 import "./style.css";
 
-const server = `${import.meta.env.REACT_APP_SERVER_URL}`;
+const server = process.env.REACT_APP_SERVER_URL;
+
 const connectionOptions = {
   "force new connection": true,
   reconnectionAttempts: "Infinity",
@@ -17,6 +18,7 @@ const connectionOptions = {
 };
 
 const socket = io(server, connectionOptions);
+
 
 const App = () => {
   const [userNo, setUserNo] = useState(0);
@@ -57,22 +59,11 @@ const App = () => {
         <>
           <Sidebar users={users} user={user} socket={socket} />
           {user.presenter ? (
-            <Room
-              userNo={userNo}
-              user={user}
-              socket={socket}
-              setUsers={setUsers}
-              setUserNo={setUserNo}
-            />
+            <Room userNo={userNo} user={user} socket={socket} setUsers={setUsers} setUserNo={setUserNo} />
           ) : (
-            <ClientRoom
-              userNo={userNo}
-              user={user}
-              socket={socket}
-              setUsers={setUsers}
-              setUserNo={setUserNo}
-            />
+            <ClientRoom userNo={userNo} user={user} socket={socket} setUsers={setUsers} setUserNo={setUserNo} />
           )}
+
         </>
       ) : (
         <JoinCreateRoom
