@@ -8,6 +8,6 @@ services:
     startCommand: node server.js
     envVars:
       - key: FRONTEND_URL
-        value: "https://your-frontend.onrender.com"
+        value: "https://whiteboard-app-1-bbf9.onrender.com"
       - key: PORT
         value: "10000"

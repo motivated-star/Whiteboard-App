@@ -8,8 +8,7 @@ import Sidebar from "./Sidebar";
 
 import "./style.css";
 
-const server = process.env.REACT_APP_SERVER_URL || "https://your-backend.onrender.com";
-
+const server = process.env.REACT_APP_SERVER_URL || "https://whiteboard-app-thd8.onrender.com";
 const socket = io(server, {
   transports: ["websocket", "polling"],
   withCredentials: true

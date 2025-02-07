@@ -1,10 +1,10 @@
 services:
   - name: whiteboard-frontend
     type: static
-    repo: https://github.com/yourusername/your-frontend-repo
+    repo: https://github.com/motivated-star/Whiteboard-App/tree/main/frontEnd
     branch: main
     buildCommand: npm install && npm run build
     staticPublishPath: build
     envVars:
-      - key: REACT_APP_BACKEND_URL
-        value: "https://your-backend.onrender.com"
+      - key: REACT_APP_SERVER_URL
+        value: "https://whiteboard-app-thd8.onrender.com"
