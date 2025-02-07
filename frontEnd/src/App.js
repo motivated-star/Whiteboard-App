@@ -8,17 +8,12 @@ import Sidebar from "./Sidebar";
 
 import "./style.css";
 
-const server = process.env.REACT_APP_SERVER_URL;
+const server = process.env.REACT_APP_SERVER_URL || "https://your-backend.onrender.com";
 
-const connectionOptions = {
-  "force new connection": true,
-  reconnectionAttempts: "Infinity",
-  timeout: 10000,
-  transports: ["websocket"],
-};
-
-const socket = io(server, connectionOptions);
-
+const socket = io(server, {
+  transports: ["websocket", "polling"],
+  withCredentials: true
+});
 
 const App = () => {
   const [userNo, setUserNo] = useState(0);
@@ -63,14 +58,9 @@ const App = () => {
           ) : (
             <ClientRoom userNo={userNo} user={user} socket={socket} setUsers={setUsers} setUserNo={setUserNo} />
           )}
-
         </>
       ) : (
-        <JoinCreateRoom
-          uuid={uuid}
-          setRoomJoined={setRoomJoined}
-          setUser={setUser}
-        />
+        <JoinCreateRoom uuid={uuid} setRoomJoined={setRoomJoined} setUser={setUser} />
       )}
     </div>
   );

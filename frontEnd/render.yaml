@@ -1,0 +1,10 @@
+services:
+  - name: whiteboard-frontend
+    type: static
+    repo: https://github.com/yourusername/your-frontend-repo
+    branch: main
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
+    envVars:
+      - key: REACT_APP_BACKEND_URL
+        value: "https://your-backend.onrender.com"

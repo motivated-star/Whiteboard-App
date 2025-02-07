@@ -1,0 +1,13 @@
+services:
+  - name: whiteboard-backend
+    type: web
+    runtime: node
+    repo: https://github.com/motivated-star/Whiteboard-App/tree/main/server
+    branch: main
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: FRONTEND_URL
+        value: "https://your-frontend.onrender.com"
+      - key: PORT
+        value: "10000"

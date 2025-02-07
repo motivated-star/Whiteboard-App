@@ -6,20 +6,25 @@ const { userJoin, getUsers, userLeave } = require("./utils/user");
 const app = express();
 const server = http.createServer(app);
 const socketIO = require("socket.io");
-const io = socketIO(server);
 
-app.use(cors());
+const FRONTEND_URL = process.env.FRONTEND_URL || "*";
+
+app.use(cors({ origin: FRONTEND_URL, credentials: true }));
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  res.header("Access-Control-Allow-Origin", FRONTEND_URL);
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
+const io = socketIO(server, {
+  cors: {
+    origin: FRONTEND_URL,
+    methods: ["GET", "POST"]
+  }
+});
+
 app.get("/", (req, res) => {
-  res.send("server");
+  res.send("server is running");
 });
 
 // socket.io
@@ -31,12 +36,8 @@ io.on("connection", (socket) => {
     const user = userJoin(socket.id, userName, roomId, host, presenter);
     const roomUsers = getUsers(user.room);
     socket.join(user.room);
-    socket.emit("message", {
-      message: "Welcome to ChatRoom",
-    });
-    socket.broadcast.to(user.room).emit("message", {
-      message: `${user.username} has joined`,
-    });
+    socket.emit("message", { message: "Welcome to ChatRoom" });
+    socket.broadcast.to(user.room).emit("message", { message: `${user.username} has joined` });
 
     io.to(user.room).emit("users", roomUsers);
     io.to(user.room).emit("canvasImage", imageUrl);
@@ -52,19 +53,14 @@ io.on("connection", (socket) => {
     const roomUsers = getUsers(userRoom);
 
     if (userLeaves) {
-      io.to(userLeaves.room).emit("message", {
-        message: `${userLeaves.username} left the chat`,
-      });
+      io.to(userLeaves.room).emit("message", { message: `${userLeaves.username} left the chat` });
       io.to(userLeaves.room).emit("users", roomUsers);
     }
   });
 });
 
 // serve on port
-const PORT = process.env.PORT || 5000;
-
-server.listen(PORT, () =>
-  console.log(`server is listening on http://localhost:${PORT}`)
-);
+const PORT = process.env.PORT || 10000;
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 module.exports = app;
