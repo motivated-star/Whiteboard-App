@@ -7,7 +7,8 @@ const app = express();
 const server = http.createServer(app);
 const socketIO = require("socket.io");
 
-const FRONTEND_URL = process.env.FRONTEND_URL || "*";
+const FRONTEND_URL = process.env.FRONTEND_URL;
+// const FRONTEND_URL = "http://localhost:3000";
 
 app.use(cors({ origin: FRONTEND_URL, credentials: true }));
 app.use((req, res, next) => {
@@ -46,6 +47,10 @@ io.on("connection", (socket) => {
   socket.on("drawing", (data) => {
     imageUrl = data;
     socket.broadcast.to(userRoom).emit("canvasImage", imageUrl);
+  });
+
+  socket.on('chat-message', (message) => {
+     socket.broadcast.emit("chat-message", message);
   });
 
   socket.on("disconnect", () => {
