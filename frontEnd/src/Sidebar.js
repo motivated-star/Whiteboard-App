@@ -1,5 +1,5 @@
 
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 
 const Sidebar = ({ users, user, socket }) => {
   const sideBarRef = useRef(null)
@@ -14,6 +14,18 @@ const Sidebar = ({ users, user, socket }) => {
   const closeSideBar = () => {
     sideBarRef.current.style.left = -100 + "%"
   }
+
+  useEffect(() => {
+    const handleIncomingMessage = (message) => {
+      setMessages((prev) => [...prev, message]);
+    };
+
+    socket.on("chat-message", handleIncomingMessage);
+
+    return () => {
+      socket.off("chat-message", handleIncomingMessage);
+    };
+  }, [socket]);
 
   const sendMessage = (e) => {
     e.preventDefault()

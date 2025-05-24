@@ -8,8 +8,8 @@ import Sidebar from "./Sidebar";
 
 import "./style.css";
 
-const server = process.env.REACT_APP_SERVER_URL;
-// const server = "http://localhost:10000";
+// const server = process.env.REACT_APP_SERVER_URL;
+const server = "http://localhost:10000";
 const socket = io(server, {
   transports: ["websocket", "polling"],
   withCredentials: true
